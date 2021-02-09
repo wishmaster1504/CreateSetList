@@ -1,0 +1,10 @@
+D:\GitHub\CrtSetList\CrtSetList\obj\Debug\CrtSetList.csprojAssemblyReference.cache
+D:\GitHub\CrtSetList\CrtSetList\obj\Debug\CrtSetList.Form1.resources
+D:\GitHub\CrtSetList\CrtSetList\obj\Debug\CrtSetList.Properties.Resources.resources
+D:\GitHub\CrtSetList\CrtSetList\obj\Debug\CrtSetList.csproj.GenerateResource.cache
+D:\GitHub\CrtSetList\CrtSetList\obj\Debug\CrtSetList.csproj.CoreCompileInputs.cache
+D:\GitHub\CrtSetList\CrtSetList\bin\Debug\CrtSetList.exe.config
+D:\GitHub\CrtSetList\CrtSetList\bin\Debug\CrtSetList.exe
+D:\GitHub\CrtSetList\CrtSetList\bin\Debug\CrtSetList.pdb
+D:\GitHub\CrtSetList\CrtSetList\obj\Debug\CrtSetList.exe
+D:\GitHub\CrtSetList\CrtSetList\obj\Debug\CrtSetList.pdb
