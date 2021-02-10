@@ -68,7 +68,7 @@ namespace CrtSetList.MyClasses
                     
             }
 
-            string tmpT = "dsd";
+             
         }
 
 

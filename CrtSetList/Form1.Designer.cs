@@ -177,9 +177,9 @@ namespace CrtSetList
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(257, 10);
+            this.textBox2.Location = new System.Drawing.Point(407, 10);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(150, 20);
+            this.textBox2.Size = new System.Drawing.Size(250, 20);
             this.textBox2.TabIndex = 16;
             this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
@@ -187,7 +187,7 @@ namespace CrtSetList
             // 
             this.textBox3.Location = new System.Drawing.Point(101, 10);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(150, 20);
+            this.textBox3.Size = new System.Drawing.Size(300, 20);
             this.textBox3.TabIndex = 17;
             this.textBox3.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
             // 

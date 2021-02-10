@@ -64,7 +64,7 @@ namespace CrtSetList
             {
                 DataPropertyName = "Category",
                 HeaderText = "Категория",
-                Width = 150,
+                Width = 300,
                 SortMode = DataGridViewColumnSortMode.Automatic,
                 ReadOnly = true
             };
@@ -73,7 +73,7 @@ namespace CrtSetList
             {
                 DataPropertyName = "Name",
                 HeaderText = "Название",
-                Width = 150,
+                Width = 250,
                 SortMode = DataGridViewColumnSortMode.Automatic,
                 ReadOnly = true
             };
@@ -118,10 +118,10 @@ namespace CrtSetList
             dataGridView1.Columns.Add(checkBoxCol);
             dataGridView1.Columns.Add(category);
             dataGridView1.Columns.Add(name);
+            dataGridView1.Columns.Add(description);
             dataGridView1.Columns.Add(quantity);
             dataGridView1.Columns.Add(costPrice);
             dataGridView1.Columns.Add(sellPrice);
-            dataGridView1.Columns.Add(description);
         }
 
         // сформировать текст сета по выбранным записям
@@ -131,6 +131,7 @@ namespace CrtSetList
             if (string.IsNullOrEmpty(textBox1.Text.ToString())) 
             {
                 MessageBox.Show("Введите название сета!!!");
+                textBox1.Focus();
                 return;
             }
 
@@ -150,19 +151,20 @@ namespace CrtSetList
             // список собрали, формируем текст 
         
             richTextBox1.AppendText("//---------------NEXT SET---------------\n");
-            richTextBox1.AppendText(String.Concat("EntityAI ", textBox1.Text.ToString(), "(PlayerBase player)\n")); // имя текста из текстбокса
-            richTextBox1.AppendText("{\n");
-            richTextBox1.AppendText("EntityAI itemEnt;\n");
+            richTextBox1.AppendText(String.Concat("    EntityAI ", textBox1.Text.ToString(), "(PlayerBase player)\n")); // имя текста из текстбокса
+            richTextBox1.AppendText("    {\n");
+            richTextBox1.AppendText("        EntityAI itemEnt;\n");
             richTextBox1.AppendText("\n");
 
             // сами итемы
             foreach (string str in setNameList)
             {
-                richTextBox1.AppendText(String.Concat("itemEnt = player.GetInventory().CreateInInventory(\u0022", str, "\u0022);\n"));
+                richTextBox1.AppendText(String.Concat("        itemEnt = player.GetInventory().CreateInInventory(\u0022", str, "\u0022);\n"));
             }
 
-            richTextBox1.AppendText("return itemEnt;\n");
-            richTextBox1.AppendText("}\n"); 
+            richTextBox1.AppendText("\n");
+            richTextBox1.AppendText("        return itemEnt;\n");
+            richTextBox1.AppendText("    }\n"); 
 
 
         }
