@@ -4,6 +4,7 @@ namespace CrtSetList.MyClasses
 {
     public class ItemRecord
     {
+        public bool checkBox;       // 0 выбрана запись/не выбрана
         public string category;     // 1 категория
         public string name;         // 2 название итема
         public string quantity;     // 3 quantity
@@ -14,8 +15,9 @@ namespace CrtSetList.MyClasses
 
         public ItemRecord() { }
 
-        public ItemRecord(string _category, string _name, string _quantity, int _costPrice, int _sellPrice, string _description) {
+        public ItemRecord(bool _checkBox, string _category, string _name, string _quantity, int _costPrice, int _sellPrice, string _description) {
 
+            checkBox    = _checkBox;
             category    = _category;
             name        = _name;
             quantity    = _quantity;
@@ -23,6 +25,11 @@ namespace CrtSetList.MyClasses
             sellPrice   = _sellPrice;
             description = _description;
         
+        }
+        public bool CheckBox
+        {
+            get { return checkBox; }
+            set { checkBox = value; }
         }
 
         public string Category

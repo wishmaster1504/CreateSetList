@@ -25,28 +25,47 @@ namespace CrtSetList
             // загрузка списка итемов
             LoadItemList loadItemList = new LoadItemList();
             loadItemList.LoadItemRecordList();
-
-            listBox1.ClearSelected();
-            listBox1.Refresh();
+             
             dataGridView1.ClearSelection();
+            richTextBox1.Clear();
 
-            // Grid
+            // Grid 
+            ConfigDataGridView();
+             
+            dataGridView1.DataSource = loadItemList.GetFullItemRecordList();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        public void ConfigDataGridView()
+        {
             dataGridView1.AutoGenerateColumns = false;
+            // запрет на изменение размера строк и столбцов
+            dataGridView1.AllowUserToResizeColumns = false;
+            dataGridView1.AllowUserToResizeRows = false;
+            // запрет добавления строк
+            dataGridView1.AllowUserToAddRows = false;
 
-            DataGridViewCheckBoxColumn checkBoxCol = new DataGridViewCheckBoxColumn() 
-            { 
+
+            DataGridViewCheckBoxColumn checkBoxCol = new DataGridViewCheckBoxColumn()
+            {
+                DataPropertyName = "CheckBox",
                 HeaderText = "Выбор",
                 Width = 50,
                 SortMode = DataGridViewColumnSortMode.Automatic
             };
-           
+
 
             DataGridViewTextBoxColumn category = new DataGridViewTextBoxColumn()
             {
                 DataPropertyName = "Category",
                 HeaderText = "Категория",
                 Width = 150,
-                SortMode = DataGridViewColumnSortMode.Automatic
+                SortMode = DataGridViewColumnSortMode.Automatic,
+                ReadOnly = true
             };
 
             DataGridViewTextBoxColumn name = new DataGridViewTextBoxColumn()
@@ -54,7 +73,8 @@ namespace CrtSetList
                 DataPropertyName = "Name",
                 HeaderText = "Название",
                 Width = 150,
-                SortMode = DataGridViewColumnSortMode.Automatic
+                SortMode = DataGridViewColumnSortMode.Automatic,
+                ReadOnly = true
             };
 
 
@@ -63,16 +83,17 @@ namespace CrtSetList
                 DataPropertyName = "Quantity",
                 HeaderText = "Качество",
                 Width = 100,
-                SortMode = DataGridViewColumnSortMode.Automatic
+                SortMode = DataGridViewColumnSortMode.Automatic,
+                ReadOnly = true
             };
-
 
             DataGridViewTextBoxColumn costPrice = new DataGridViewTextBoxColumn()
             {
                 DataPropertyName = "CostPrice",
                 HeaderText = "Цена покупки",
                 Width = 100,
-                SortMode = DataGridViewColumnSortMode.Automatic
+                SortMode = DataGridViewColumnSortMode.Automatic,
+                ReadOnly = true
             };
 
             DataGridViewTextBoxColumn sellPrice = new DataGridViewTextBoxColumn()
@@ -80,7 +101,8 @@ namespace CrtSetList
                 DataPropertyName = "SellPrice",
                 HeaderText = "Цена продажи",
                 Width = 100,
-                SortMode = DataGridViewColumnSortMode.Automatic
+                SortMode = DataGridViewColumnSortMode.Automatic,
+                ReadOnly = true
             };
 
             DataGridViewTextBoxColumn description = new DataGridViewTextBoxColumn()
@@ -88,7 +110,8 @@ namespace CrtSetList
                 DataPropertyName = "Description",
                 HeaderText = "Описание",
                 Width = 150,
-                SortMode = DataGridViewColumnSortMode.Automatic
+                SortMode = DataGridViewColumnSortMode.Automatic,
+                ReadOnly = true
             };
 
             dataGridView1.Columns.Add(checkBoxCol);
@@ -98,13 +121,67 @@ namespace CrtSetList
             dataGridView1.Columns.Add(costPrice);
             dataGridView1.Columns.Add(sellPrice);
             dataGridView1.Columns.Add(description);
-
-            dataGridView1.DataSource = loadItemList.GetFullItemRecordList();
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        // сформировать текст сета по выбранным записям
+        private void button1_Click(object sender, EventArgs e)
         {
-            Close();
+            //ругаемся, если не задали имя сета
+            if (string.IsNullOrEmpty(textBox1.Text.ToString())) 
+            {
+                MessageBox.Show("Введите название сета!!!");
+                return;
+            }
+
+
+            //List<ItemRecord> iRecToList = new List<ItemRecord>();
+            List<string> setNameList = new List<string>();
+
+            foreach(DataGridViewRow row in dataGridView1.Rows)
+            {
+                if (object.Equals(row.Cells[0].Value, true))
+                { 
+                    setNameList.Add(row.Cells[2].Value.ToString()); 
+                }
+                
+            }
+
+            // список собрали, формируем текст 
+        
+            richTextBox1.AppendText("//---------------NEXT SET---------------\n");
+            richTextBox1.AppendText(String.Concat("EntityAI ", textBox1.Text.ToString(), "(PlayerBase player)\n")); // имя текста из текстбокса
+            richTextBox1.AppendText("{\n");
+            richTextBox1.AppendText("EntityAI itemEnt;\n");
+            richTextBox1.AppendText("\n");
+
+            // сами итемы
+            foreach (string str in setNameList)
+            {
+                richTextBox1.AppendText(String.Concat("itemEnt = player.GetInventory().CreateInInventory(\u0022", str, "\u0022);\n"));
+            }
+
+            richTextBox1.AppendText("return itemEnt;\n");
+            richTextBox1.AppendText("}\n"); 
+
+
+        }
+
+        // очистить выбор
+        private void button4_Click(object sender, EventArgs e)
+        {
+
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                row.Cells[0].Value = false; 
+            }
+
+            textBox1.Text = string.Empty;
+        }
+
+        // очистить текст
+        private void button2_Click(object sender, EventArgs e)
+        { 
+            richTextBox1.Clear();
         }
     }
 }

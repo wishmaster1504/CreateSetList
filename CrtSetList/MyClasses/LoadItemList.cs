@@ -18,7 +18,7 @@ namespace CrtSetList.MyClasses
         private static readonly string _testDbPath = Path.Combine(Environment.CurrentDirectory, "itemlist.csv");
         protected bool filefound;
 
-        protected BindingList<ItemRecord> fullItemList;
+        protected BindingList<ItemRecord> fullItemList; // весь список итемов из файла
 
         // конструктор
         public LoadItemList() {
@@ -75,7 +75,7 @@ namespace CrtSetList.MyClasses
         // добавление в список
         private void SetToItemRecordList(string _category, string _name, string _quantity, int _costPrice, int _sellPrice, string _description)
         {
-            fullItemList.Add(new ItemRecord(_category, _name, _quantity, _costPrice, _sellPrice, _description));
+            fullItemList.Add(new ItemRecord(false, _category, _name, _quantity, _costPrice, _sellPrice, _description));
         }
 
         // Полный список итемов
