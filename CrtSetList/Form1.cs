@@ -12,7 +12,9 @@ using System.Windows.Forms;
 namespace CrtSetList
 {
     public partial class Form1 : Form
-    {
+    { 
+        public LoadItemList loadItemList = new LoadItemList();
+
         public Form1()
         {
             InitializeComponent();
@@ -23,7 +25,6 @@ namespace CrtSetList
         private void Form1_Load(object sender, EventArgs e)
         {
             // загрузка списка итемов
-            LoadItemList loadItemList = new LoadItemList();
             loadItemList.LoadItemRecordList();
              
             dataGridView1.ClearSelection();
@@ -182,6 +183,62 @@ namespace CrtSetList
         private void button2_Click(object sender, EventArgs e)
         { 
             richTextBox1.Clear();
+        }
+
+        public static bool StringContainsValue(string str, string val)
+        { 
+            return str.Contains(val); 
+        }
+
+        // Поиск по Названию с позиционированием на запись
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+            if (String.IsNullOrEmpty(textBox2.Text)) return;
+
+
+
+            dataGridView1.ClearSelection();
+
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            { 
+                // Если вводим в название и есть символы в Категории или категория пуста
+                if (StringContainsValue(row.Cells[2].Value.ToString().ToUpper(), textBox2.Text.ToUpper()) &&
+                    ((!String.IsNullOrEmpty(textBox3.Text) && 
+                        StringContainsValue(row.Cells[1].Value.ToString().ToUpper(), textBox3.Text.ToUpper())) || 
+                    String.IsNullOrEmpty(textBox3.Text))
+                    ) 
+                {
+                    row.Selected = true;
+                    dataGridView1.CurrentCell = row.Cells[2];
+                    return;
+                }
+            }
+
+
+        }
+
+        // Поиск по категории
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+            if (String.IsNullOrEmpty(textBox3.Text)) return;
+
+
+            dataGridView1.ClearSelection();
+
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                if (StringContainsValue(row.Cells[1].Value.ToString().ToUpper(), textBox3.Text.ToUpper()) &&
+                    ((!String.IsNullOrEmpty(textBox2.Text) && 
+                        StringContainsValue(row.Cells[2].Value.ToString().ToUpper(), textBox2.Text.ToUpper())) || 
+                    String.IsNullOrEmpty(textBox2.Text))
+                    )
+                {
+                    row.Selected = true;
+                    dataGridView1.CurrentCell = row.Cells[1];
+                    return;
+                }
+            }
+
         }
     }
 }
